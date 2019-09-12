@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Юрий Последов](https://up.htmlacademy.ru/javascript/18/user/957741).
-* Наставник: `Неизвестно`.
+* Наставник: [Игорь Шевченко](https://htmlacademy.ru/profile/id149304).
 
 ---
 
