@@ -17,15 +17,16 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
 var MAP_PIN_AMOUNT = 8;
+var LOCATION_Y_MIN = 130;
+var LOCATION_Y_MAX = 630;
+var LOCATION_X_OFFSET = 25;
 var announcements = [];
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 var mapPinsListElement = map.querySelector('.map__pins');
 var MAP_WIDTH = mapPinsListElement.offsetWidth;
-// console.log(mapPinsListElement.offsetWidth);
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
 
 // Функция для получение СЛУЧАЙНОЙ ЦИФРЫ в указанном диапазоне
 var getRandomNumber = function (min, max) {
@@ -40,47 +41,36 @@ var getRandomArrayElement = function (arr) {
   return arr[randomElement];
 };
 
-// Функция для изменения длинны массива
-var changeArrayLength = function (arr) {
-  var changedArr = arr;
-  changedArr.length = getRandomNumber(0, arr.length);
-  return changedArr;
-};
-
 // Функция возращаюшая обьект мага с рандомными свойствами, заданными на основании данных массивов
-var getAnnouncementObject = function (avatarNumber, title, prices, types, rooms, guests, checkinArr, checkoutArr, features, descriptions, photos) {
+var getAnnouncementObject = function (avatarNumber, title, prices, types, rooms, guests, checkinArr, checkoutArr, features, description, photos) {
+  var location = {
+    'x': getRandomNumber(0, MAP_WIDTH) - LOCATION_X_OFFSET,
+    'y': getRandomNumber(LOCATION_Y_MIN, LOCATION_Y_MAX),
+  };
   var announcement = {
     'author': {
       'avatar': 'img/avatars/user' + avatarNumber + '.png',
     },
     'offer': {
       'title': title,
-      // 'address': announcement.location.x + ', ' + announcement.location.y,
+      'address': location.x + ', ' + location.y,
       'price': getRandomArrayElement(prices),
       'type': getRandomArrayElement(types),
       'rooms': getRandomArrayElement(rooms),
       'guests': getRandomArrayElement(guests),
       'checkin': getRandomArrayElement(checkinArr),
       'checkout': getRandomArrayElement(checkoutArr),
-      'features': changeArrayLength(features),
-      'description': getRandomArrayElement(descriptions),
-      'photos': changeArrayLength(photos),
+      'features': features.slice(0, getRandomNumber(0, features.length)),
+      'description': description,
+      'photos': photos.slice(0, getRandomNumber(0, photos.length)),
     },
     'location': {
-      'x': getRandomNumber(0, MAP_WIDTH),
-      'y': getRandomNumber(130, 630),
+      'x': location.x,
+      'y': location.y,
     },
   };
   return announcement;
 };
-
-// Наполнение массива announcement обьектами обьявлений
-// Если ПЕРЕДАЕТСЯ массив С указанием индекса, значит необходимо получить из массива ТОЧНОЕ ЗНАЧЕНИЕ(такое, которое НЕ МОЖЕТ повторяться в разных обьеках)
-// Если ПЕРЕДАЕТСЯ массив БЕЗ указания индекса, значит необходимо получить из массива СЛУЧАЙНОЕ ЗНАЧЕНИЕ(-ИЯ)(такое, которое МОЖЕТ повторяться в разных обьеках)
-// Если массив НЕ ПЕРЕДАЕТСЯ, значит необходимо получить СЛУЧАЙНОЕ ЗНАЧЕНИЕ
-for (var i = 0; i < MAP_PIN_AMOUNT; i++) {
-  announcements[i] = getAnnouncementObject(AVATAR_NUMBERS[i], TITLES[i], PRICES, TYPES, ROOMS, GUESTS, CHECKIN_ARR, CHECKOUT_ARR, FEATURES, DESCRIPTIONS, PHOTOS);
-}
 
 // Создание DOM элемента обьявления на основе данных обьекта pin
 var renderMapPin = function (pin) {
@@ -92,13 +82,16 @@ var renderMapPin = function (pin) {
   return mapPin;
 };
 
+// Наполнение массива announcement обьектами обьявлений
+// Если ПЕРЕДАЕТСЯ массив С указанием индекса, значит необходимо получить из массива ТОЧНОЕ ЗНАЧЕНИЕ(такое, которое НЕ МОЖЕТ повторяться в разных обьеках)
+// Если ПЕРЕДАЕТСЯ массив БЕЗ указания индекса, значит необходимо получить из массива СЛУЧАЙНОЕ ЗНАЧЕНИЕ(-ИЯ)(такое, которое МОЖЕТ повторяться в разных обьеках)
+// Если массив НЕ ПЕРЕДАЕТСЯ, значит необходимо получить СЛУЧАЙНОЕ ЗНАЧЕНИЕ
 // Наполнение fragment`а DOM - элементами обьявлений
 var fragment = document.createDocumentFragment();
-for (var j = 0; j < announcements.length; j++) {
-  fragment.appendChild(renderMapPin(announcements[j]));
+for (var i = 0; i < MAP_PIN_AMOUNT; i++) {
+  announcements[i] = getAnnouncementObject(AVATAR_NUMBERS[i], TITLES[i], PRICES, TYPES, ROOMS, GUESTS, CHECKIN_ARR, CHECKOUT_ARR, FEATURES, DESCRIPTIONS[i], PHOTOS);
+  fragment.appendChild(renderMapPin(announcements[i]));
 }
+
 // Вставка fragment`а на страницу
 mapPinsListElement.appendChild(fragment);
-
-// Отображение окна пользователя
-// userWindow.querySelector('.setup-similar').classList.remove('hidden');
