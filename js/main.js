@@ -36,9 +36,8 @@ var getRandomNumber = function (min, max) {
 // Функция для получения СЛУЧАЙНОГО ЭЛЕМЕНТА из массива
 // Прим: так как величина длинны массива больше величины индекса последнего элемента массива, Math.random() никогда не выдает один, а Math.floor() округляет вниз
 var getRandomArrayElement = function (arr) {
-  var max = arr.length;
-  var randomElement = Math.floor(Math.random() * max);
-  return arr[randomElement];
+  var randomNumber = getRandomNumber(0, arr.length - 1);
+  return arr[randomNumber];
 };
 
 // Функция возращаюшая обьект мага с рандомными свойствами, заданными на основании данных массивов
@@ -78,7 +77,8 @@ var renderMapPin = function (pin) {
   var mapPinImg = mapPin.querySelector('img');
   mapPinImg.alt = pin.offer.title;
   mapPinImg.src = pin.author.avatar;
-  mapPin.setAttribute('style', 'left: ' + pin.location.x + 'px; ' + 'top: ' + pin.location.y + 'px;');
+  mapPin.style.left = pin.location.x + 'px';
+  mapPin.style.top = pin.location.y + 'px';
   return mapPin;
 };
 
@@ -91,6 +91,7 @@ var fragment = document.createDocumentFragment();
 for (var i = 0; i < MAP_PIN_AMOUNT; i++) {
   announcements[i] = getAnnouncementObject(AVATAR_NUMBERS[i], TITLES[i], PRICES, TYPES, ROOMS, GUESTS, CHECKIN_ARR, CHECKOUT_ARR, FEATURES, DESCRIPTIONS[i], PHOTOS);
   fragment.appendChild(renderMapPin(announcements[i]));
+  console.log(announcements[i]);
 }
 
 // Вставка fragment`а на страницу
