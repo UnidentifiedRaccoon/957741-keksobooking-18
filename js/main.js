@@ -92,7 +92,6 @@ var fragment = document.createDocumentFragment();
 for (var i = 0; i < MAP_PIN_AMOUNT; i++) {
   announcements[i] = getAnnouncementObject(AVATAR_NUMBERS[i], TITLES[i], PRICES, TYPES, ROOMS, GUESTS, CHECKIN_ARR, CHECKOUT_ARR, FEATURES, DESCRIPTIONS[i], PHOTOS);
   fragment.appendChild(renderMapPin(announcements[i]));
-  console.log(announcements[i]);
 }
 
 // Вставка fragment`а на страницу
