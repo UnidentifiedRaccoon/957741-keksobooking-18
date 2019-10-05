@@ -17,9 +17,10 @@ var PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
 var MAP_PIN_AMOUNT = 8;
-var LOCATION_Y_MIN = 130;
-var LOCATION_Y_MAX = 630;
 var LOCATION_X_OFFSET = 25;
+var LOCATION_Y_MIN = 200;
+var LOCATION_Y_MAX = 700;
+var LOCATION_Y_OFFSET = 70;
 var announcements = [];
 
 var map = document.querySelector('.map');
@@ -43,7 +44,7 @@ var getRandomArrayElement = function (arr) {
 // Функция возращаюшая обьект мага с рандомными свойствами, заданными на основании данных массивов
 var getAnnouncementObject = function (avatarNumber, title, prices, types, rooms, guests, checkinArr, checkoutArr, features, description, photos) {
   var location = {
-    'x': getRandomNumber(0, MAP_WIDTH) - LOCATION_X_OFFSET,
+    'x': getRandomNumber(0, MAP_WIDTH),
     'y': getRandomNumber(LOCATION_Y_MIN, LOCATION_Y_MAX),
   };
   var announcement = {
@@ -77,8 +78,8 @@ var renderMapPin = function (pin) {
   var mapPinImg = mapPin.querySelector('img');
   mapPinImg.alt = pin.offer.title;
   mapPinImg.src = pin.author.avatar;
-  mapPin.style.left = pin.location.x + 'px';
-  mapPin.style.top = pin.location.y + 'px';
+  mapPin.style.left = (pin.location.x - LOCATION_X_OFFSET) + 'px';
+  mapPin.style.top = (pin.location.y - LOCATION_Y_OFFSET) + 'px';
   return mapPin;
 };
 
