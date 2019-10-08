@@ -18,8 +18,8 @@ var PHOTOS = [
 ];
 var MAP_PIN_AMOUNT = 8;
 var LOCATION_X_OFFSET = 25;
-var LOCATION_Y_MIN = 200;
-var LOCATION_Y_MAX = 700;
+var LOCATION_Y_MIN = 130;
+var LOCATION_Y_MAX = 630;
 var LOCATION_Y_OFFSET = 70;
 var announcements = [];
 
@@ -30,12 +30,12 @@ var MAP_WIDTH = mapPinsListElement.offsetWidth;
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 // Функция для получение СЛУЧАЙНОЙ ЦИФРЫ в указанном диапазоне
+// Прим: так как для округления случайного числа исп. Math.floor() то к максимальному числу необходимо добавить один (max + 1)
 var getRandomNumber = function (min, max) {
   return Math.floor(min + Math.random() * (max + 1 - min));
 };
 
 // Функция для получения СЛУЧАЙНОГО ЭЛЕМЕНТА из массива
-// Прим: так как величина длинны массива больше величины индекса последнего элемента массива, Math.random() никогда не выдает один, а Math.floor() округляет вниз
 var getRandomArrayElement = function (arr) {
   var randomNumber = getRandomNumber(0, arr.length - 1);
   return arr[randomNumber];
