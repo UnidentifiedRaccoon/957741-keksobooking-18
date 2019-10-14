@@ -101,7 +101,6 @@ var mainMapPin = document.querySelector('.map__pin--main');
 var inputAddress = adForm.querySelector('#address');
 var selectRoomNumbers = document.querySelector('#room_number');
 var selectCapacity = document.querySelector('#capacity');
-var ENTER_KEYCODE = 13;
 var MAIN_LOCATION_Y_OFFSET = mainMapPin.offsetHeight;
 var MAIN_LOCATION_X_OFFSET = mainMapPin.offsetWidth;
 
@@ -124,11 +123,11 @@ var makeActivePage = function () {
 
 // Подучение координат из CSS свойств элемента
 var getPointIndicateByMainMapPin = function (top, left) {
-  left = Number(left.replace(/px/g, '')) + MAIN_LOCATION_X_OFFSET / 2;
+  left = parseInt(left, 10) + MAIN_LOCATION_X_OFFSET / 2;
   if (map.classList.contains('map--faded')) {
-    top = Number(top.replace(/px/g, '')) + MAIN_LOCATION_Y_OFFSET / 2;
+    top = parseInt(top, 10) + MAIN_LOCATION_Y_OFFSET / 2;
   } else {
-    top = Number(top.replace(/px/g, '')) + MAIN_LOCATION_Y_OFFSET;
+    top = parseInt(top, 10) + MAIN_LOCATION_Y_OFFSET;
   }
   return Math.floor(left) + ', ' + Math.floor(top);
 };
@@ -160,10 +159,5 @@ selectCapacity.addEventListener('change', validationOfRoomsAndGuests);
 // Запись изначальных координат в поле адреса
 inputAddress.value = getPointIndicateByMainMapPin(mainMapPin.style.top, mainMapPin.style.left);
 
-// Обработчики клика и ENTER'a для перевода страници в активное состояние
-mainMapPin.addEventListener('mousedown', makeActivePage);
-mainMapPin.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    makeActivePage();
-  }
-});
+// Обработчики клика для перевода страници в активное состояние
+mainMapPin.addEventListener('click', makeActivePage);
