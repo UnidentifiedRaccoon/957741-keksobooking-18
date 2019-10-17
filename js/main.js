@@ -18,13 +18,12 @@ var PHOTOS = [
 ];
 var MAP_PIN_AMOUNT = 8;
 var LOCATION_X_OFFSET = 25;
-var LOCATION_Y_MIN = 130;
 var LOCATION_Y_MAX = 630;
+var LOCATION_Y_MIN = 130;
 var LOCATION_Y_OFFSET = 70;
 var announcements = [];
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 var mapPinsListElement = map.querySelector('.map__pins');
 var MAP_WIDTH = mapPinsListElement.offsetWidth;
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
@@ -93,6 +92,72 @@ for (var i = 0; i < MAP_PIN_AMOUNT; i++) {
   announcements[i] = getAnnouncementObject(AVATAR_NUMBERS[i], TITLES[i], PRICES, TYPES, ROOMS, GUESTS, CHECKIN_ARR, CHECKOUT_ARR, FEATURES, DESCRIPTIONS[i], PHOTOS);
   fragment.appendChild(renderMapPin(announcements[i]));
 }
+// Вставка fragment`а на страницу(будет использоваться в следующих заданиях)
+// mapPinsListElement.appendChild(fragment);
 
-// Вставка fragment`а на страницу
-mapPinsListElement.appendChild(fragment);
+var adForm = document.querySelector('.ad-form');
+var filterForm = document.querySelector('.map__filters');
+var mainMapPin = document.querySelector('.map__pin--main');
+var inputAddress = adForm.querySelector('#address');
+var selectRoomNumbers = document.querySelector('#room_number');
+var selectCapacity = document.querySelector('#capacity');
+var MAIN_LOCATION_Y_OFFSET = mainMapPin.offsetHeight;
+var MAIN_LOCATION_X_OFFSET = mainMapPin.offsetWidth;
+
+// Функция для удаления указанного атрибута во всех элементах(детях) указаннного родителя
+var removeChildrenAttribute = function (parent, attr) {
+  var children = parent.querySelectorAll('[' + attr + ']');
+  for (var j = 0; j < children.length; j++) {
+    children[j].removeAttribute(attr);
+  }
+};
+
+// Функция для перевода страницы в активное сосотояние
+var makeActivePage = function () {
+  map.classList.remove('map--faded');
+  adForm.classList.remove('ad-form--disabled');
+  removeChildrenAttribute(filterForm, 'disabled');
+  removeChildrenAttribute(adForm, 'disabled');
+  inputAddress.value = getPointIndicateByMainMapPin(mainMapPin.style.top, mainMapPin.style.left);
+};
+
+// Подучение координат из CSS свойств элемента
+var getPointIndicateByMainMapPin = function (top, left) {
+  left = parseInt(left, 10) + MAIN_LOCATION_X_OFFSET / 2;
+  if (map.classList.contains('map--faded')) {
+    top = parseInt(top, 10) + MAIN_LOCATION_Y_OFFSET / 2;
+  } else {
+    top = parseInt(top, 10) + MAIN_LOCATION_Y_OFFSET;
+  }
+  return Math.floor(left) + ', ' + Math.floor(top);
+};
+
+// Функция для проверкии соответствия значения комнат и гостей
+var validationOfRoomsAndGuests = function () {
+  var roomNumbers = selectRoomNumbers;
+  var capacity = selectCapacity;
+  if (roomNumbers.value === '100' || capacity.value === '0') {
+    if (roomNumbers.value === '100' && capacity.value === '0') {
+      capacity.setCustomValidity('');
+    } else {
+      capacity.setCustomValidity('100 комнат - помещение не для гостей');
+    }
+  } else if (roomNumbers.value < capacity.value) {
+    capacity.setCustomValidity('Слишком много гостей');
+  } else {
+    capacity.setCustomValidity('');
+  }
+};
+
+// Вызов функции для валидации изначальных значений
+validationOfRoomsAndGuests();
+
+// Обработчики изменения значениий select'а комнат и гостей
+selectRoomNumbers.addEventListener('change', validationOfRoomsAndGuests);
+selectCapacity.addEventListener('change', validationOfRoomsAndGuests);
+
+// Запись изначальных координат в поле адреса
+inputAddress.value = getPointIndicateByMainMapPin(mainMapPin.style.top, mainMapPin.style.left);
+
+// Обработчики клика для перевода страници в активное состояние
+mainMapPin.addEventListener('click', makeActivePage);
