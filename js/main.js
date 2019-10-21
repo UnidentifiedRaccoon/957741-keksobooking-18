@@ -21,6 +21,8 @@ var LOCATION_X_OFFSET = 25;
 var LOCATION_Y_MAX = 630;
 var LOCATION_Y_MIN = 130;
 var LOCATION_Y_OFFSET = 70;
+
+var ENTER_KEYCODE = 13;
 var announcements = [];
 
 var map = document.querySelector('.map');
@@ -159,5 +161,10 @@ selectCapacity.addEventListener('change', validationOfRoomsAndGuests);
 // Запись изначальных координат в поле адреса
 inputAddress.value = getPointIndicateByMainMapPin(mainMapPin.style.top, mainMapPin.style.left);
 
-// Обработчики клика для перевода страници в активное состояние
-mainMapPin.addEventListener('click', makeActivePage);
+// Обработчики клика и ENTER'a для перевода страници в активное состояние
+mainMapPin.addEventListener('mousedown', makeActivePage);
+mainMapPin.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    makeActivePage();
+  }
+});
