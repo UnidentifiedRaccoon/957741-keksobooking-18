@@ -2,6 +2,8 @@
 
 (function () {
   var pinCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+  var LOCATION_X_OFFSET = 25;
+  var LOCATION_Y_OFFSET = 70;
 
   var renderCard = function (cardInfo) {
     var card = pinCardTemplate.cloneNode(true);
@@ -64,6 +66,11 @@
 
     var cardAvatar = card.querySelector('.popup__avatar');
     cardAvatar.src = cardInfo.author.avatar;
+
+    card.style.left = (cardInfo.location.x + LOCATION_X_OFFSET) + 'px';
+    card.style.top = (cardInfo.location.y + LOCATION_Y_OFFSET) + 'px';
+
+    card.classList.add('visually-hidden');
 
     return card;
   };
