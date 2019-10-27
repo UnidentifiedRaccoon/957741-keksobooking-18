@@ -46,10 +46,8 @@
     })();
   }
 
-  // Вставка fragment`а на страницу(будет использоваться в следующих заданиях)
-  var mapPinsListElement = window.util.map.querySelector('.map__pins');
-  mapPinsListElement.appendChild(pinsFragment);
-  var pinsCarsListElement = document.querySelector('.map__filters-container');
-  window.util.map.insertBefore(cardsFragment, pinsCarsListElement);
-
+  window.map = {
+    pinsFragment: pinsFragment,
+    cardsFragment: cardsFragment
+  };
 })();

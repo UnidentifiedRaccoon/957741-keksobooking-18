@@ -77,7 +77,10 @@
 
   // экспорт данных модуля
   window.data = {
-    announcements: announcements
+    announcements: announcements,
+    locationYMax: LOCATION_Y_MAX,
+    locationYMin: LOCATION_Y_MIN,
+    mapWidth: MAP_WIDTH
   };
 
 })();
