@@ -5,8 +5,6 @@
   var filterForm = document.querySelector('.map__filters');
   var mainMapPin = document.querySelector('.map__pin--main');
   var inputAddress = adForm.querySelector('#address');
-  var selectRoomNumbers = document.querySelector('#room_number');
-  var selectCapacity = document.querySelector('#capacity');
   var MAIN_LOCATION_Y_OFFSET = mainMapPin.offsetHeight;
   var MAIN_LOCATION_X_OFFSET = mainMapPin.offsetWidth;
 
@@ -20,11 +18,16 @@
 
   // Функция для перевода страницы в активное сосотояние
   var makeActivePage = function () {
+    // Удаление неактивной CSS стилизиции
     window.util.map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
+    // Удаление атрибутов disabled у всех элементов форм
     removeChildrenAttribute(filterForm, 'disabled');
     removeChildrenAttribute(adForm, 'disabled');
+    // Заполнение поля адрес координатами главного пина
     inputAddress.value = getPointIndicateByMainMapPin(mainMapPin.style.top, mainMapPin.style.left);
+    // JS валидация формы
+    window.validation.allValidation();
   };
 
   // Подучение координат из CSS свойств элемента
@@ -37,34 +40,6 @@
     }
     return Math.floor(left) + ', ' + Math.floor(top);
   };
-
-  // Функция для проверкии соответствия значения комнат и гостей
-  var validationOfRoomsAndGuests = function () {
-    var roomNumbers = selectRoomNumbers;
-    var capacity = selectCapacity;
-    if (roomNumbers.value === '100' || capacity.value === '0') {
-      if (roomNumbers.value === '100' && capacity.value === '0') {
-        capacity.setCustomValidity('');
-      } else {
-        capacity.setCustomValidity('100 комнат - помещение не для гостей');
-      }
-    } else if (roomNumbers.value < capacity.value) {
-      capacity.setCustomValidity('Слишком много гостей');
-    } else {
-      capacity.setCustomValidity('');
-    }
-  };
-
-  // Вызов функции для валидации изначальных значений
-  validationOfRoomsAndGuests();
-
-  // Обработчики изменения значениий select'а комнат и гостей
-  selectRoomNumbers.addEventListener('change', function () {
-    validationOfRoomsAndGuests();
-  });
-  selectCapacity.addEventListener('change', function () {
-    validationOfRoomsAndGuests();
-  });
 
   // Запись изначальных координат в поле адреса
   inputAddress.value = getPointIndicateByMainMapPin(mainMapPin.style.top, mainMapPin.style.left);

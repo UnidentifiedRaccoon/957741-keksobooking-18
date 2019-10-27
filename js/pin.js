@@ -6,13 +6,16 @@
   var LOCATION_Y_OFFSET = 70;
 
   // Создание DOM элемента обьявления на основе данных обьекта pin
-  var renderMapPin = function (pin) {
+  var renderMapPin = function (announcement) {
     var mapPin = mapPinTemplate.cloneNode(true);
     var mapPinImg = mapPin.querySelector('img');
-    mapPinImg.alt = pin.offer.title;
-    mapPinImg.src = pin.author.avatar;
-    mapPin.style.left = (pin.location.x - LOCATION_X_OFFSET) + 'px';
-    mapPin.style.top = (pin.location.y - LOCATION_Y_OFFSET) + 'px';
+    mapPinImg.alt = announcement.offer.title;
+    mapPinImg.src = announcement.author.avatar;
+    mapPin.style.left = (announcement.location.x - LOCATION_X_OFFSET) + 'px';
+    mapPin.style.top = (announcement.location.y - LOCATION_Y_OFFSET) + 'px';
+    // mapPin.addEventListener('keydown', function(evt) {
+    //   isEnterEvent(evt, showCard);
+    // })
     return mapPin;
   };
 
