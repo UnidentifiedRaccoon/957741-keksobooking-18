@@ -5,8 +5,8 @@
   var filterForm = document.querySelector('.map__filters');
   var mainMapPin = document.querySelector('.map__pin--main');
   var inputAddress = adForm.querySelector('#address');
-  var MAIN_LOCATION_Y_OFFSET = mainMapPin.offsetHeight;
-  var MAIN_LOCATION_X_OFFSET = mainMapPin.offsetWidth;
+  var mapPinsListElement = window.util.map.querySelector('.map__pins');
+  var pinsCarsListElement = document.querySelector('.map__filters-container');
 
   // Функция для удаления указанного атрибута во всех элементах(детях) указаннного родителя
   var removeChildrenAttribute = function (parent, attr) {
@@ -25,24 +25,17 @@
     removeChildrenAttribute(filterForm, 'disabled');
     removeChildrenAttribute(adForm, 'disabled');
     // Заполнение поля адрес координатами главного пина
-    inputAddress.value = getPointIndicateByMainMapPin(mainMapPin.style.top, mainMapPin.style.left);
+    inputAddress.value = window.mainPin.getMainMapPinCoords();
     // JS валидация формы
     window.validation.allValidation();
+    // Вставка фрагментов с пинами и карточками на страницу
+    mapPinsListElement.appendChild(window.map.pinsFragment);
+    window.util.map.insertBefore(window.map.cardsFragment, pinsCarsListElement);
   };
 
-  // Подучение координат из CSS свойств элемента
-  var getPointIndicateByMainMapPin = function (top, left) {
-    left = parseInt(left, 10) + MAIN_LOCATION_X_OFFSET / 2;
-    if (window.util.map.classList.contains('map--faded')) {
-      top = parseInt(top, 10) + MAIN_LOCATION_Y_OFFSET / 2;
-    } else {
-      top = parseInt(top, 10) + MAIN_LOCATION_Y_OFFSET;
-    }
-    return Math.floor(left) + ', ' + Math.floor(top);
-  };
 
   // Запись изначальных координат в поле адреса
-  inputAddress.value = getPointIndicateByMainMapPin(mainMapPin.style.top, mainMapPin.style.left);
+  inputAddress.value = window.mainPin.getMainMapPinCoords();
 
   // Обработчики клика и ENTER'a для перевода страници в активное состояние
   mainMapPin.addEventListener('mousedown', function () {
