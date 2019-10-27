@@ -38,7 +38,9 @@
     (function () {
       var currentPin = window.pin.renderMapPin(window.data.announcements[i]);
       var currentCard = window.card.renderPinCard(window.data.announcements[i]);
+      // Привязка карточки к пину
       addListeners(currentPin, currentCard); // Без space
+      // Наполнение fragment`а
       pinsFragment.appendChild(currentPin);
       cardsFragment.appendChild(currentCard);
     })();
