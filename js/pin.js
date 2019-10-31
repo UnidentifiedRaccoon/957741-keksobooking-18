@@ -13,9 +13,6 @@
     mapPinImg.src = announcement.author.avatar;
     mapPin.style.left = (announcement.location.x - LOCATION_X_OFFSET) + 'px';
     mapPin.style.top = (announcement.location.y - LOCATION_Y_OFFSET) + 'px';
-    // mapPin.addEventListener('keydown', function(evt) {
-    //   isEnterEvent(evt, showCard);
-    // })
     return mapPin;
   };
 
