@@ -1,11 +1,11 @@
 'use strict';
 
-(function() {
+(function () {
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
 
   // Функция показа карточки по клику на пин
-  var showCard = function(pin) {
+  var showCard = function (pin) {
     // Сначала закрываем все карточки
     closeCard();
     // Затем открываем карточку того пина, на котором произошел клик
@@ -19,12 +19,12 @@
   };
 
   // Функция-Обработчик скрытия карточки
-  var onCloseXClick = function() {
+  var onCloseXClick = function () {
     closeCard();
   };
 
   // Функция скрывающая карточку
-  var closeCard = function() {
+  var closeCard = function () {
     for (var j = 0; j < window.map.pinsArr.length; j++) {
       // Закрываем все карточки
       window.map.pinsArr[j].classList.remove('map__pin--active');
@@ -36,7 +36,7 @@
   };
 
   // Функция получениия кнопки(пина) из данных обработчика;
-  var getSelectedPin = function(evt) {
+  var getSelectedPin = function (evt) {
     var button;
     // Если мы кликнули на картинку в кнопке, то button присваивается значение родителя картинки
     // Иначе button присваивается значение кнопки
@@ -49,9 +49,9 @@
   };
 
   // Функция добавления обработчиков
-  var addListeners = function() {
+  var addListeners = function () {
     // Обработчик на map для открытия карточки по клику на пин
-    window.util.map.addEventListener('mousedown', function(evt) {
+    window.util.map.addEventListener('mousedown', function (evt) {
       if (evt.target.className === 'map__pin' || evt.path[1].className === 'map__pin') {
         var selectedPin = getSelectedPin(evt);
         showCard(selectedPin);
@@ -59,7 +59,7 @@
     });
 
     // Обработчик на map для открытия карточки по нажатию на ENTER на пине
-    window.util.map.addEventListener('keydown', function(evt) {
+    window.util.map.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
         if (evt.target.className === 'map__pin' || evt.path[1].className === 'map__pin') {
           var selectedPin = getSelectedPin(evt);
@@ -69,15 +69,14 @@
     });
 
     // Обработчик на map для закрытия карточки по нажатию на ESC
-    window.util.map.addEventListener('keydown', function(evt) {
+    window.util.map.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ESC_KEYCODE) {
         closeCard();
       }
     });
   };
 
-  var onLoad = function(announcements) {
-    console.log(announcements);
+  var onLoad = function (announcements) {
     var cardsArr = [];
     var pinsFragment = document.createDocumentFragment();
     var cardsFragment = document.createDocumentFragment();
@@ -94,6 +93,7 @@
       // Наполнение fragment`а DOM - элементами обьявлений
       pinsFragment.appendChild(currentPin);
       cardsFragment.appendChild(currentCard);
+      // Так пришлось сделать, иначе мы не сможем получить массивы образуемые из серверных данных во внешние функции
       window.map = {
         pinsFragment: pinsFragment,
         cardsFragment: cardsFragment,
@@ -112,9 +112,10 @@
 
     main.appendChild(errorPopup);
   };
-  // Добавление всех нужных обработчиков
-  addListeners();
 
   window.backend.load(onLoad, onError);
+
+  // Добавление всех нужных обработчиков
+  addListeners();
 
 })();

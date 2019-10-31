@@ -2,8 +2,6 @@
 
 (function () {
   var pinCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
-  var LOCATION_X_OFFSET = 25;
-  var LOCATION_Y_OFFSET = 70;
 
   var renderCard = function (cardInfo) {
     var card = pinCardTemplate.cloneNode(true);
@@ -20,19 +18,19 @@
     var cardType = card.querySelector('.popup__type');
     switch (cardInfo.offer.type) {
       case 'flat':
-        cardType.textContent = 'Квартира'
+        cardType.textContent = 'Квартира';
         break;
       case 'house':
-        cardType.textContent = 'Дом'
+        cardType.textContent = 'Дом';
         break;
       case 'palace':
-        cardType.textContent = 'Дворец'
+        cardType.textContent = 'Дворец';
         break;
       case 'bungalo':
-        cardType.textContent = 'Бунгало'
+        cardType.textContent = 'Бунгало';
         break;
       default:
-        cardType.textContent = 'Не определен'
+        cardType.textContent = 'Не определен';
     }
 
     var cardCapacity = card.querySelector('.popup__text--capacity');
@@ -61,7 +59,6 @@
     var cardDescription = card.querySelector('.popup__description');
     cardDescription.textContent = cardInfo.offer.description;
 
-
     var cardPhotos = card.querySelector('.popup__photos');
     // Получение содержимого cardFeatures
     var cardPhotosChild = cardPhotos.querySelector('img');
@@ -75,12 +72,8 @@
       cardPhotos.appendChild(imgChild);
     }
 
-
     var cardAvatar = card.querySelector('.popup__avatar');
     cardAvatar.src = cardInfo.author.avatar;
-
-    // card.style.left = (cardInfo.location.x + LOCATION_X_OFFSET) + 'px';
-    // card.style.top = (cardInfo.location.y + LOCATION_Y_OFFSET) + 'px';
 
     card.classList.add('visually-hidden');
 
