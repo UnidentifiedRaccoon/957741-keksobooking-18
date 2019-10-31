@@ -18,7 +18,22 @@
     cardPrice.textContent = cardInfo.offer.price + '₽/ночь';
 
     var cardType = card.querySelector('.popup__type');
-    cardType.textContent = cardInfo.offer.type;
+    switch (cardInfo.offer.type) {
+      case 'flat':
+        cardType.textContent = 'Квартира'
+        break;
+      case 'house':
+        cardType.textContent = 'Дом'
+        break;
+      case 'palace':
+        cardType.textContent = 'Дворец'
+        break;
+      case 'bungalo':
+        cardType.textContent = 'Бунгало'
+        break;
+      default:
+        cardType.textContent = 'Не определен'
+    }
 
     var cardCapacity = card.querySelector('.popup__text--capacity');
     cardCapacity.textContent = cardInfo.offer.rooms + ' комнаты для ' + cardInfo.offer.guests + ' гостей';
@@ -33,7 +48,7 @@
     cardFeatures.textContent = '';
     // Для каждого элемента массива cardFeaturesChildren проводим проверку на содержание класса
     // Один из классов элемента должен иметь любую из приставок перечисленных в массиве cardInfo.offer.features
-    for (var i = 0; i < cardInfo.offer.features.length; i++) {
+    for (var i = 0; i < cardFeaturesChildren.length; i++) {
       var featureChild = cardFeaturesChildren[i];
       for (var j = 0; j < cardInfo.offer.features.length; j++) {
         if (featureChild.classList.contains('popup__feature--' + cardInfo.offer.features[j])) {
@@ -64,8 +79,8 @@
     var cardAvatar = card.querySelector('.popup__avatar');
     cardAvatar.src = cardInfo.author.avatar;
 
-    card.style.left = (cardInfo.location.x + LOCATION_X_OFFSET) + 'px';
-    card.style.top = (cardInfo.location.y + LOCATION_Y_OFFSET) + 'px';
+    // card.style.left = (cardInfo.location.x + LOCATION_X_OFFSET) + 'px';
+    // card.style.top = (cardInfo.location.y + LOCATION_Y_OFFSET) + 'px';
 
     card.classList.add('visually-hidden');
 
