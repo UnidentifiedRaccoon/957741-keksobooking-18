@@ -75,6 +75,7 @@
     var cardAvatar = card.querySelector('.popup__avatar');
     cardAvatar.src = cardInfo.author.avatar;
 
+    // Все карточки изначально скрыты
     card.classList.add('hidden');
 
     return card;

@@ -5,18 +5,21 @@
   var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
   var main = document.querySelector('main');
+
   var isEnterEvent = function (evt, action) {
     if (evt.keyCode === ENTER_KEYCODE) {
       action();
     }
   };
+
   var isEscEvent = function (evt, action) {
     if (evt.keyCode === ESC_KEYCODE) {
       action();
     }
   };
 
-// Функция для вывода сообщения об ошибке
+
+  // Функция для вывода сообщения об ошибке
   var onErrorMessage = function (message) {
     // Клонирование шаблона сообщения
     var errorPopup = errorMessageTemplate.cloneNode(true);
@@ -27,12 +30,11 @@
     main.appendChild(errorPopup);
 
     // Функция - обработчик click для удаления сообщения об успехе
-    var onWindowClick = function() {
+    var onWindowClick = function () {
       try {
         main.removeChild(errorPopup);
-        console.log('пока работаю');
       } catch (e) {
-        console.log('поймл ошибку');
+        // Обрабатывать ошибку нам не нужно, а обработчик должен быть удален в любом случае. Коммент чтобы eslint не ругался
       } finally {
         window.removeEventListener('click', onWindowClick);
       }
@@ -41,13 +43,12 @@
     window.addEventListener('click', onWindowClick);
 
     // Функция - обработчик keydown для удаления сообщения об успехе
-    var onWindowEsc = function(evt) {
+    var onWindowEsc = function (evt) {
       if (evt.keyCode === ESC_KEYCODE) {
         try {
           main.removeChild(errorPopup);
-          console.log('пока работаю');
         } catch (e) {
-          console.log('поймл ошибку');
+          // Обрабатывать ошибку нам не нужно, а обработчик должен быть удален в любом случае. Коммент чтобы eslint не ругался
         } finally {
           window.removeEventListener('keydown', onWindowEsc);
         }
@@ -57,7 +58,8 @@
     window.addEventListener('keydown', onWindowEsc);
   };
 
-// Функция для вывода сообщения об успешной операции
+
+  // Функция для вывода сообщения об успешной операции
   var onSuccessMessage = function () {
     // Клонирование шаблона сообщения
     var successPopup = successMessageTemplate.cloneNode(true);
@@ -65,12 +67,11 @@
     main.appendChild(successPopup);
 
     // Функция - обработчик click для удаления сообщения об успехе
-    var onWindowClick = function() {
+    var onWindowClick = function () {
       try {
         main.removeChild(successPopup);
-        console.log('пока работаю');
       } catch (e) {
-        console.log('поймл ошибку');
+        // Обрабатывать ошибку нам не нужно, а обработчик должен быть удален в любом случае. Коммент чтобы eslint не ругался
       } finally {
         window.removeEventListener('click', onWindowClick);
       }
@@ -79,13 +80,12 @@
     window.addEventListener('click', onWindowClick);
 
     // Функция - обработчик keydown для удаления сообщения об успехе
-    var onWindowEsc = function(evt) {
+    var onWindowEsc = function (evt) {
       if (evt.keyCode === ESC_KEYCODE) {
         try {
           main.removeChild(successPopup);
-          console.log('пока работаю');
         } catch (e) {
-          console.log('поймл ошибку');
+          // Обрабатывать ошибку нам не нужно, а обработчик должен быть удален в любом случае. Коммент чтобы eslint не ругался
         } finally {
           window.removeEventListener('keydown', onWindowEsc);
         }
