@@ -75,7 +75,8 @@
     var cardAvatar = card.querySelector('.popup__avatar');
     cardAvatar.src = cardInfo.author.avatar;
 
-    card.classList.add('visually-hidden');
+    // Все карточки изначально скрыты
+    card.classList.add('hidden');
 
     return card;
   };

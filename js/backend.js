@@ -2,7 +2,7 @@
 
 (function () {
   var URL_LOAD = 'https://js.dump.academy/keksobooking/data';
-  // var URL_SAVE = 'https://js.dump.academy/code-and-magick';
+  var URL_SAVE = 'https://js.dump.academy/keksobooking';
 
   var makeHttpReques = function (method, url, onLoad, onError, data) {
     var xhr = new XMLHttpRequest();
@@ -38,9 +38,9 @@
   window.backend = {
     load: function (onLoad, onError) {
       makeHttpReques('GET', URL_LOAD, onLoad, onError);
+    },
+    save: function (data, onLoad, onError) {
+      makeHttpReques('POST', URL_SAVE, onLoad, onError, data);
     }
-    // save: function (data, onLoad, onError) {
-    //   makeHttpReques('POST', URL_SAVE, onLoad, onError, data);
-    // }
   };
 })();
