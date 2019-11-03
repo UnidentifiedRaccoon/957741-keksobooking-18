@@ -10,7 +10,7 @@
     closeCard();
     // Затем открываем карточку того пина, на котором произошел клик
     pin.classList.add('map__pin--active');
-    window.map.cardsArr[pin.id].classList.remove('visually-hidden');
+    window.map.cardsArr[pin.id].classList.remove('hidden');
     // Почему нажатие клавиши не срабатывает на карточке? Это может быть связано с отсутствием фокуса на карточке? Как это фиксить и нужно ли?
     // window.map.cardsArr[pin.id].addEventListener('keydown', onCloseXClick)
     // Добавляем кнопке закрытия карточки обработчик, для закрытия карточки
@@ -28,7 +28,7 @@
     for (var j = 0; j < window.map.pinsArr.length; j++) {
       // Закрываем все карточки
       window.map.pinsArr[j].classList.remove('map__pin--active');
-      window.map.cardsArr[j].classList.add('visually-hidden');
+      window.map.cardsArr[j].classList.add('hidden');
       // Удаляем обработчик у всех кнопок закрытия карточек
       var closeX = window.map.cardsArr[j].querySelector('.popup__close');
       closeX.removeEventListener('click', onCloseXClick);
@@ -103,17 +103,7 @@
     }
   };
 
-  var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-  var main = document.querySelector('main');
-  var onError = function (message) {
-    var errorPopup = errorMessageTemplate.cloneNode(true);
-    var errorPopupMessage = errorPopup.querySelector('.error__message');
-    errorPopupMessage.textContent = message;
-
-    main.appendChild(errorPopup);
-  };
-
-  window.backend.load(onLoad, onError);
+  window.backend.load(onLoad, window.util.onErrorMessage);
 
   // Добавление всех нужных обработчиков
   addListeners();

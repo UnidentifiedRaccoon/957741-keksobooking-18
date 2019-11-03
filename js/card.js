@@ -75,7 +75,7 @@
     var cardAvatar = card.querySelector('.popup__avatar');
     cardAvatar.src = cardInfo.author.avatar;
 
-    card.classList.add('visually-hidden');
+    card.classList.add('hidden');
 
     return card;
   };
