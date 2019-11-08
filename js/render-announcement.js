@@ -1,12 +1,14 @@
 'use strict';
 
 (function () {
+  var MAX_ANNOUNCMENT_QUANTITY = 5;
   var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
   var cardsArr = [];
-  var pinsFragment = document.createDocumentFragment();
-  var cardsFragment = document.createDocumentFragment();
   var pinsArr = [];
+  var mapPinsListElement = window.util.map.querySelector('.map__pins');
+  var pinsCarsListElement = document.querySelector('.map__filters-container');
+
 
   // Функция показа карточки по клику на пин
   var showCard = function (pin) {
@@ -28,8 +30,8 @@
   var closeCard = function () {
     for (var j = 0; j < pinsArr.length; j++) {
       // Закрываем все карточки
-     pinsArr[j].classList.remove('map__pin--active');
-     cardsArr[j].classList.add('hidden');
+      pinsArr[j].classList.remove('map__pin--active');
+      cardsArr[j].classList.add('hidden');
       // Удаляем обработчик у всех кнопок закрытия карточек
       var closeX = cardsArr[j].querySelector('.popup__close');
       closeX.removeEventListener('click', onCloseXClick);
@@ -77,10 +79,16 @@
     });
   };
 
-  var announcements = [];
-  var onLoad = function (data) {
-    announcements = data;
-    for (var i = 0; i < announcements.length; i++) {
+  window.renderAnnouncement = function (announcements, pinHidden) {
+
+    var announcementQuantity = announcements.length > MAX_ANNOUNCMENT_QUANTITY ? MAX_ANNOUNCMENT_QUANTITY : announcements.length;
+    for (var j = 0; j < pinsArr.length; j++) {
+      mapPinsListElement.removeChild(pinsArr[j]);
+      window.util.map.removeChild(cardsArr[j]);
+    }
+    pinsArr = [];
+    cardsArr = [];
+    for (var i = 0; i < announcementQuantity; i++) {
       // Получение DOM объектов пина и карточки
       var currentPin = window.pin.renderMapPin(announcements[i]);
       var currentCard = window.card.renderPinCard(announcements[i]);
@@ -90,22 +98,12 @@
       cardsArr[i] = currentCard;
       pinsArr[i] = currentPin;
       // Наполнение fragment`а DOM - элементами обьявлений
-      pinsFragment.appendChild(currentPin);
-      cardsFragment.appendChild(currentCard);
-      // Так пришлось сделать, иначе мы не сможем получить массивы образуемые из серверных данных во внешние функции
+      mapPinsListElement.appendChild(currentPin);
+      window.util.map.insertBefore(currentCard, pinsCarsListElement);
+      if (pinHidden) {
+        currentPin.classList.add('hidden');
+      }
     }
+    addListeners();
   };
-
-  window.backend.load(onLoad, window.util.onErrorMessage);
-
-  // Добавление всех нужных обработчиков
-  addListeners();
-
-  window.map = {
-    pinsFragment: pinsFragment,
-    cardsFragment: cardsFragment,
-    pinsArr: pinsArr,
-    cardsArr: cardsArr
-  };
-
 })();
