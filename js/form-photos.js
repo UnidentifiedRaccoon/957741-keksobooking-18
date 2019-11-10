@@ -12,10 +12,7 @@
   var photoBoxColor = photoBox.style.backgroundColor;
   var photoBoxPosition = ' 0 0';
   var photoBoxSize = photoBox.offsetWidth + 'px, ' + photoBox.offsetHeight + 'px';
-  var photoBoxRepeat = ' no-repeat'
-
-
-
+  var photoBoxRepeat = ' no-repeat';
 
   avatarFileChooser.addEventListener('change', function () {
     var file = avatarFileChooser.files[0];
@@ -51,7 +48,7 @@
       if (matches) {
         var reader = new FileReader();
         reader.addEventListener('load', function () {
-          photoBox.style.background =  photoBoxColor + 'url(\'' + reader.result + '\')' + photoBoxRepeat + photoBoxPosition;
+          photoBox.style.background = photoBoxColor + 'url(\'' + reader.result + '\')' + photoBoxRepeat + photoBoxPosition;
           photoBox.style.backgroundSize = photoBoxSize;
         });
         reader.readAsDataURL(file);

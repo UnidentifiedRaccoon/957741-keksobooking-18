@@ -57,7 +57,6 @@
     window.addEventListener('mousedown', function (evt) {
       if (evt.target.className === 'map__pin' || evt.path[1].className === 'map__pin') {
         var selectedPin = getSelectedPin(evt);
-        console.log('Обраб');
         showCard(selectedPin);
       }
     });

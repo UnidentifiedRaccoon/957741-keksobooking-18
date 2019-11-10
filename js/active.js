@@ -39,7 +39,6 @@
         }
       }
       window.validation.allValidation();
-      console.log('Lf');
       // Удаление обработчиков по окончании выполнения функции
       mainMapPin.removeEventListener('mousedown', makeActivePage);
       mainMapPin.removeEventListener('keydown', makeActivePage);

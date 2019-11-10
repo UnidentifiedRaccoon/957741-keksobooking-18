@@ -20,7 +20,7 @@
       case '1':
       case '2':
       case '3':
-        if (capVal <= roomVal && capVal ==! 0) {
+        if (capVal <= roomVal && capVal !== 0) {
           capacity.setCustomValidity('');
           capacity.classList.remove('invalid');
         } else {
