@@ -58,7 +58,6 @@
 
     var cardDescription = card.querySelector('.popup__description');
     cardDescription.textContent = cardInfo.offer.description;
-
     var cardPhotos = card.querySelector('.popup__photos');
     // Получение содержимого cardFeatures
     var cardPhotosChild = cardPhotos.querySelector('img');

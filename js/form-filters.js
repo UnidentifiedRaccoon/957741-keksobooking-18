@@ -3,6 +3,7 @@
 (function () {
   var filterForm = document.querySelector('.map__filters');
   var adForm = document.querySelector('.ad-form');
+  var adFormButtonReset = adForm.querySelector('.ad-form__reset');
   // Необходимо для определения, когда прятать пины(костылик)
   var pinHidden;
   var announcements = [];
@@ -135,6 +136,17 @@
     pinHidden = true;
     update();
   };
+
+
+  // adFormButtonSubmit.addEventListener('mousedown', function () {
+  //   // JS валидация формы
+  //   window.validation.allValidation();
+  // });
+
+  adFormButtonReset.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.nonActive.makeNonActivePage();
+  });
 
   // Обработчик события отправки формы
   adForm.addEventListener('submit', function (evt) {
