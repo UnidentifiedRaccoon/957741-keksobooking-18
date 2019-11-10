@@ -5,6 +5,7 @@
   var filterForm = document.querySelector('.map__filters');
   var inputAddress = adForm.querySelector('#address');
   var mapPinsListElement = window.util.map.querySelector('.map__pins');
+  var mainMapPin = document.querySelector('.map__pin--main');
 
   // Функция для добавления указанного атрибута во всех элементах(детях) указаннного родителя
   var addChildrenAttribute = function (parent, attr) {
@@ -41,6 +42,9 @@
     for (var z = 0; z < mapCards.length; z++) {
       mapCards[z].classList.add('hidden');
     }
+    //
+    mainMapPin.addEventListener('mousedown', window.active.makeActivePage);
+    mainMapPin.addEventListener('keydown', window.active.makeActivePage);
   };
 
   window.nonActive = {

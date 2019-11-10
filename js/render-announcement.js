@@ -57,6 +57,7 @@
     window.addEventListener('mousedown', function (evt) {
       if (evt.target.className === 'map__pin' || evt.path[1].className === 'map__pin') {
         var selectedPin = getSelectedPin(evt);
+        console.log('Обраб');
         showCard(selectedPin);
       }
     });
@@ -89,19 +90,23 @@
     pinsArr = [];
     cardsArr = [];
     for (var i = 0; i < announcementQuantity; i++) {
-      // Получение DOM объектов пина и карточки
-      var currentPin = window.pin.renderMapPin(announcements[i]);
-      var currentCard = window.card.renderPinCard(announcements[i]);
-      // Добавление всем пинам id для связи с карточкой
-      currentPin.id = i;
-      // Создание массивов пинов и карточек (нужно для реализации открытия/закрытия карточки при нажатиии на пин)
-      cardsArr[i] = currentCard;
-      pinsArr[i] = currentPin;
-      // Наполнение fragment`а DOM - элементами обьявлений
-      mapPinsListElement.appendChild(currentPin);
-      window.util.map.insertBefore(currentCard, pinsCarsListElement);
-      if (pinHidden) {
-        currentPin.classList.add('hidden');
+      // delete announcements[i].offer;
+      if (announcements[i].hasOwnProperty('offer')) {
+
+        // Получение DOM объектов пина и карточки
+        var currentPin = window.pin.renderMapPin(announcements[i]);
+        var currentCard = window.card.renderPinCard(announcements[i]);
+        // Добавление всем пинам id для связи с карточкой
+        currentPin.id = i;
+        // Создание массивов пинов и карточек (нужно для реализации открытия/закрытия карточки при нажатиии на пин)
+        cardsArr[i] = currentCard;
+        pinsArr[i] = currentPin;
+        // Наполнение fragment`а DOM - элементами обьявлений
+        mapPinsListElement.appendChild(currentPin);
+        window.util.map.insertBefore(currentCard, pinsCarsListElement);
+        if (pinHidden) {
+          currentPin.classList.add('hidden');
+        }
       }
     }
     addListeners();
