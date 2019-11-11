@@ -19,6 +19,8 @@
   var guestsSelect = filterForm.querySelector('#housing-guests');
   var selectedGuests = guestsSelect.value;
 
+  var selectedFeatures = [];
+
   // Функция фильтрации типа
   var filterType = function (item) {
     if (selectedType === 'any') {
@@ -81,6 +83,20 @@
     }
   };
 
+  var filterFeatures = function (item) {
+
+    if (selectedFeatures.length === 0) {
+      return true;
+    }
+    var features = item.offer.features.join(', ');
+    for (var i = 0; i < selectedFeatures.length; i++) {
+      if (features.indexOf(selectedFeatures[i]) === -1) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   // Обновление объявления согласно фильтрам
   var update = function () {
     window.renderAnnouncement(announcements.slice()
@@ -88,7 +104,7 @@
     .filter(filterPrice)
     .filter(filterRooms)
     .filter(filterGuests)
-    , pinHidden);
+    .filter(filterFeatures), pinHidden);
   };
 
   window.filterSetup.filters.onTypeChange = window.debounce(function (type) {
@@ -115,6 +131,20 @@
     update();
   });
 
+  window.filterSetup.filters.onFeaturesChange = window.debounce(function (feature) {
+    selectedFeatures.push(feature);
+    selectedFeatures = selectedFeatures.filter(function (item, index, arr) {
+      var currentDoubleIndex = arr.lastIndexOf(item);
+      if (currentDoubleIndex >= 0 && index !== currentDoubleIndex) {
+        selectedFeatures.splice(currentDoubleIndex, 1);
+        return false;
+      }
+      return true;
+    });
+    pinHidden = false;
+    update();
+  });
+
 
   // Функция для обработки успешного получения данных
   var onLoad = function (data) {
@@ -133,15 +163,10 @@
     selectedPrice = priceSelect.value;
     selectedRooms = roomsSelect.value;
     selectedGuests = guestsSelect.value;
+    selectedFeatures = [];
     pinHidden = true;
     update();
   };
-
-
-  // adFormButtonSubmit.addEventListener('mousedown', function () {
-  //   // JS валидация формы
-  //   window.validation.allValidation();
-  // });
 
   adFormButtonReset.addEventListener('click', function (evt) {
     evt.preventDefault();
