@@ -34,8 +34,8 @@
       }
       window.validation.allValidation();
       // Удаление обработчиков по окончании выполнения функции
-      this.removeEventListener('mousedown', makeActivePage);
-      this.removeEventListener('keydown', makeActivePage);
+      mainMapPin.removeEventListener('mousedown', makeActivePage);
+      mainMapPin.removeEventListener('keydown', makeActivePage);
     }
   };
 
@@ -43,8 +43,8 @@
   inputAddress.value = window.mainPin.getMainMapPinCoords();
 
   // Обработчики клика и ENTER'a для перевода страници в активное состояние
-  mainMapPin.addEventListener('mousedown', makeActivePage.bind(mainMapPin));
-  mainMapPin.addEventListener('keydown', makeActivePage.bind(mainMapPin));
+  mainMapPin.addEventListener('mousedown', makeActivePage);
+  mainMapPin.addEventListener('keydown', makeActivePage);
 
   window.active = {
     makeActivePage: makeActivePage,
