@@ -30,14 +30,12 @@
       // Удаление у всех пинов класса hidden
       var mapPins = mapPinsListElement.querySelectorAll('.map__pin');
       for (var x = 0; x < mapPins.length; x++) {
-        if (!mapPins[x].classList.contains('map__pin--main')) {
-          mapPins[x].classList.remove('hidden');
-        }
+        mapPins[x].classList.remove('hidden');
       }
       window.validation.allValidation();
       // Удаление обработчиков по окончании выполнения функции
-      mainMapPin.removeEventListener('mousedown', makeActivePage);
-      mainMapPin.removeEventListener('keydown', makeActivePage);
+      this.removeEventListener('mousedown', makeActivePage);
+      this.removeEventListener('keydown', makeActivePage);
     }
   };
 
