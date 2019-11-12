@@ -26,7 +26,9 @@
     window.util.map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
     // Заполнение поля адрес координатами главного пина
+    window.mainPin.removeMainPinToStart();
     inputAddress.value = window.mainPin.getMainMapPinCoords();
+    window.formPhoto.reset();
     // Добавление всем пинам класса hidden и фокусировка на главном пине(поднимает страницу на верх)
     var mapPins = mapPinsListElement.querySelectorAll('.map__pin');
     for (var x = 0; x < mapPins.length; x++) {
@@ -42,7 +44,7 @@
     for (var z = 0; z < mapCards.length; z++) {
       mapCards[z].classList.add('hidden');
     }
-    //
+    // Добавление обработчиков активирующих страницу
     mainMapPin.addEventListener('mousedown', window.active.makeActivePage);
     mainMapPin.addEventListener('keydown', window.active.makeActivePage);
   };

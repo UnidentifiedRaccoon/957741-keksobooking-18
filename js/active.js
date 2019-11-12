@@ -27,10 +27,6 @@
       removeChildrenAttribute(adForm, 'disabled');
       // Заполнение поля адрес координатами главного пина
       inputAddress.value = window.mainPin.getMainMapPinCoords();
-
-      // Вставка фрагмента с пинами на страницу
-      // mapPinsListElement.appendChild(window.renderAnnouncement.pinsFragment);
-      // window.util.map.insertBefore(window.renderAnnouncement.cardsFragment, pinsCarsListElement);
       // Удаление у всех пинов класса hidden
       var mapPins = mapPinsListElement.querySelectorAll('.map__pin');
       for (var x = 0; x < mapPins.length; x++) {

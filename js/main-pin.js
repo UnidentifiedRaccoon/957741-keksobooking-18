@@ -4,6 +4,8 @@
   var adForm = document.querySelector('.ad-form');
   var inputAddress = adForm.querySelector('#address');
   var mainMapPin = document.querySelector('.map__pin--main');
+  var MAIN_START_X_COORDS = '570px';
+  var MAIN_START_Y_COORDS = '375px';
   var MAIN_LOCATION_Y_OFFSET = mainMapPin.offsetHeight;
   var MAIN_LOCATION_X_OFFSET = mainMapPin.offsetWidth;
   var LEFT_COORD_MAX = window.data.mapWidth - MAIN_LOCATION_X_OFFSET / 2;
@@ -78,7 +80,13 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
+  var removeMainPinToStart = function () {
+    mainMapPin.style.top = MAIN_START_Y_COORDS;
+    mainMapPin.style.left = MAIN_START_X_COORDS;
+  };
+
   window.mainPin = {
-    getMainMapPinCoords: getMainMapPinCoords
+    getMainMapPinCoords: getMainMapPinCoords,
+    removeMainPinToStart: removeMainPinToStart,
   };
 })();

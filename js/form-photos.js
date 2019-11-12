@@ -7,6 +7,7 @@
   var avatarFileChooser = document.querySelector('#avatar');
   var avatarBox = document.querySelector('.ad-form-header__preview');
   var avatarImg = avatarBox.querySelector('img');
+  var avatarImgSrc = avatarImg.src;
   var photoFileChooser = document.querySelector('#images');
   var photoBox = document.querySelector('.ad-form__photo');
   var photoBoxColor = photoBox.style.backgroundColor;
@@ -55,4 +56,13 @@
       }
     }
   });
+
+  var reset = function () {
+    avatarImg.src = avatarImgSrc;
+    photoBox.style.background = '';
+  }
+
+  window.formPhoto = {
+    reset: reset,
+  };
 })();
