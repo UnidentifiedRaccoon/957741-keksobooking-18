@@ -1,8 +1,6 @@
 'use strict';
 
 (function () {
-  var adForm = document.querySelector('.ad-form');
-  var inputAddress = adForm.querySelector('#address');
   var mainMapPin = document.querySelector('.map__pin--main');
   var MAIN_START_X_COORDS = '570px';
   var MAIN_START_Y_COORDS = '375px';
@@ -12,6 +10,8 @@
   var LEFT_COORD_MIN = 0 - MAIN_LOCATION_X_OFFSET / 2;
   var TOP_COORD_MAX = window.data.locationYMax;
   var TOP_COORD_MIN = window.data.locationYMin;
+  var adForm = document.querySelector('.ad-form');
+  var inputAddress = adForm.querySelector('#address');
 
   // Подучение координат из CSS свойств элемента
   var getMainMapPinCoords = function () {

@@ -32,8 +32,8 @@
   });
 
   for (var i = 0; i < featureCheckboxes.length; i++) {
-    featureCheckboxes[i].addEventListener('change', function () {
-      filters.onFeaturesChange(this.value);
+    featureCheckboxes[i].addEventListener('change', function (evt) {
+      filters.onFeaturesChange(evt.target.value);
     });
   }
 

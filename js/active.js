@@ -43,8 +43,8 @@
   inputAddress.value = window.mainPin.getMainMapPinCoords();
 
   // Обработчики клика и ENTER'a для перевода страници в активное состояние
-  mainMapPin.addEventListener('mousedown', makeActivePage);
-  mainMapPin.addEventListener('keydown', makeActivePage);
+  mainMapPin.addEventListener('mousedown', makeActivePage.bind(mainMapPin));
+  mainMapPin.addEventListener('keydown', makeActivePage.bind(mainMapPin));
 
   window.active = {
     makeActivePage: makeActivePage,

@@ -15,6 +15,7 @@
   var photoBoxSize = photoBox.offsetWidth + 'px, ' + photoBox.offsetHeight + 'px';
   var photoBoxRepeat = ' no-repeat';
 
+  // Обработка выбора аватарки
   avatarFileChooser.addEventListener('change', function () {
     var file = avatarFileChooser.files[0];
 
@@ -37,6 +38,7 @@
     }
   });
 
+  // Обработка выбора фотографии
   photoFileChooser.addEventListener('change', function () {
     var file = photoFileChooser.files[0];
 
@@ -60,7 +62,7 @@
   var reset = function () {
     avatarImg.src = avatarImgSrc;
     photoBox.style.background = '';
-  }
+  };
 
   window.formPhoto = {
     reset: reset,
