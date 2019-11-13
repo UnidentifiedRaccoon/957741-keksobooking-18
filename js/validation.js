@@ -12,6 +12,7 @@
 
   // Функция для проверкии соответствия значений комнат и гостей
   var validationOfRoomsAndGuests = function () {
+    console.log('Гости и комнаты валидируется');
     var roomNumbers = selectRoomNumbers;
     var capacity = selectCapacity;
     var roomVal = parseInt(roomNumbers.value, 10);
@@ -45,6 +46,7 @@
 
   // Функция для проверкии соответствия значений цены и типа
   var validationOfPriceAndType = function () {
+    console.log('Цена и тип валидируется');
     var type = selectType;
     var price = inputPrice;
     switch (type.value) {
@@ -84,6 +86,7 @@
   // Функция для проверкии соответствия значений select'а времени заезда и выезда
   // Из-за особенности проверки пришлось разбить на две функции (можно сделать одной но )
   var validationOfTimeinAndTimeout = function (changed, unchanged) {
+    console.log('Время валидируется');
     switch (changed.value) {
       case '12:00':
         unchanged.value = '12:00';
@@ -102,6 +105,7 @@
   // Функция проверки корректности данных введенных в поле Заголовка
   var validationOfTitle = function () {
     var title = inputTitle;
+    console.log('Заголовок валидируется');
     if (title.validity.tooLong) {
       title.setCustomValidity('Заголовок слишком длинный');
       title.classList.add('invalid');

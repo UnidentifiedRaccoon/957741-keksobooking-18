@@ -13,13 +13,17 @@
   var selectedFeatures = [];
   // Функция фильтрации объявлении по типу
   var filterType = function (item) {
-    if (window.filterFunctions.selectedType === 'any') {
-      return true;
-    } else if (window.filterFunctions.selectedType === item.offer.type) {
-      return true;
-    } else {
-      return false;
-    }
+    // Стало (нужны ли скобки '()' у return)
+    return (window.filterFunctions.selectedType === 'any' ||
+     window.filterFunctions.selectedType === item.offer.type);
+     // Было
+    // if (window.filterFunctions.selectedType === 'any') {
+    //   return true;
+    // } else if (window.filterFunctions.selectedType === item.offer.type) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   };
 
   // Функция фильтрации объявлении по цене
@@ -29,51 +33,48 @@
       return true;
     // Низкая цена
     } else if (window.filterFunctions.selectedPrice === 'low') {
-
-      if (item.offer.price <= 10000) {
-        return true;
-      }
-      return false;
+      return (item.offer.price <= 10000);
+      // if (item.offer.price <= 10000) {
+      //   return true;
+      // }
+      // return false;
     // Средняя цена
     } else if (window.filterFunctions.selectedPrice === 'middle') {
-
-      if (item.offer.price > 10000 && item.offer.price < 50000) {
-        return true;
-      }
-      return false;
+      return (item.offer.price > 10000 && item.offer.price < 50000);
+      // if (item.offer.price > 10000 && item.offer.price < 50000) {
+      //   return true;
+      // }
+      // return false;
     // Высокая цена
     } else if (window.filterFunctions.selectedPrice === 'high') {
-
-      if (item.offer.price >= 50000) {
-        return true;
-      }
-      return false;
+      return (item.offer.price >= 50000);
+      // if (item.offer.price >= 50000) {
+      //   return true;
+      // }
+      // return false;
     }
     return false;
   };
 
   // Функция фильтрации объявлении по количеству комнат
   var filterRooms = function (item) {
-    if (window.filterFunctions.selectedRooms === 'any') {
-      return true;
-    } else if (parseInt(window.filterFunctions.selectedRooms, 10) === item.offer.rooms) {
-      return true;
-    } else {
-      return false;
-    }
+    return (window.filterFunctions.selectedRooms === 'any' ||
+     parseInt(window.filterFunctions.selectedRooms, 10) === item.offer.rooms);
   };
 
   // Функция фильтрации объявлении по количеству гостей
   var filterGuests = function (item) {
-    if (window.filterFunctions.selectedGuests === 'any') {
-      return true;
-    } else if (parseInt(window.filterFunctions.selectedGuests, 10) === 0) {
-      return false;
-    } else if (parseInt(window.filterFunctions.selectedGuests, 10) === item.offer.guests) {
-      return true;
-    } else {
-      return false;
-    }
+    return ((window.filterFunctions.selectedGuests === 'any' ||
+      parseInt(window.filterFunctions.selectedGuests, 10) === item.offer.guests) &&
+      parseInt(window.filterFunctions.selectedGuests, 10) !== 0);
+    // if (window.filterFunctions.selectedGuests === 'any') {
+    //   return true;
+    // } else if (parseInt(window.filterFunctions.selectedGuests, 10) === 0) {
+    //   return false;
+    // } else if (parseInt(window.filterFunctions.selectedGuests, 10) === item.offer.guests) {
+    //   return true;
+    // }
+    // return false;
   };
 
   // Функция фильтрации объявлении по доп. услугам

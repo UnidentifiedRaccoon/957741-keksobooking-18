@@ -6,6 +6,8 @@
   var ESC_KEYCODE = 27;
   var cardsArr = [];
   var pinsArr = [];
+  var pinsFragment = document.createDocumentFragment();
+  var cardsFragment = document.createDocumentFragment();
   var mapPinsListElement = window.util.map.querySelector('.map__pins');
   var pinsCarsListElement = document.querySelector('.map__filters-container');
 
@@ -89,7 +91,6 @@
     pinsArr = [];
     cardsArr = [];
     for (var i = 0; i < announcementQuantity; i++) {
-      // delete announcements[i].offer;
       if (announcements[i].hasOwnProperty('offer')) {
 
         // Получение DOM объектов пина и карточки
@@ -101,13 +102,15 @@
         cardsArr[i] = currentCard;
         pinsArr[i] = currentPin;
         // Наполнение fragment`а DOM - элементами обьявлений
-        mapPinsListElement.appendChild(currentPin);
-        window.util.map.insertBefore(currentCard, pinsCarsListElement);
+        pinsFragment.appendChild(currentPin);
+        cardsFragment.appendChild(currentCard);
         if (pinHidden) {
           currentPin.classList.add('hidden');
         }
       }
     }
+    mapPinsListElement.appendChild(pinsFragment);
+    window.util.map.insertBefore(cardsFragment, pinsCarsListElement);
     addListeners();
   };
 })();
