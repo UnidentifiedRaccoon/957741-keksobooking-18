@@ -29,9 +29,9 @@
       if (matches) {
         var reader = new FileReader();
         reader.addEventListener('load', function () {
-          avatarBox.style.padding = '5px';
           avatarImg.width = avatarBox.offsetWidth;
           avatarImg.height = avatarBox.offsetHeight;
+          avatarBox.style.padding = '0';
           avatarImg.src = reader.result;
         });
         reader.readAsDataURL(file);
