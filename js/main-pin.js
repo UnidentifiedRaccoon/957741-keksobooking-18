@@ -54,7 +54,7 @@
         //   // Если меньше минимума, то можно только увеличить
         //   // Если больше максимума, то можно только уменьшить
         mainMapPin.style.left = (mainMapPin.offsetLeft + shift.x) + 'px';
-      } else if (leftCoord < LEFT_COORD_MIN ) {
+      } else if (leftCoord < LEFT_COORD_MIN) {
         // при попытках уменьшить выставится минимальная координата
         mainMapPin.style.left = LEFT_COORD_MIN + 'px';
       } else if (leftCoord > LEFT_COORD_MAX) {

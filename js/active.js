@@ -34,19 +34,24 @@
       }
       window.validation.allValidation();
       // Удаление обработчиков по окончании выполнения функции
-      mainMapPin.removeEventListener('mousedown', makeActivePage);
-      mainMapPin.removeEventListener('keydown', makeActivePage);
+      mainMapPin.removeEventListener('mousedown', onMainPinClick);
+      mainMapPin.removeEventListener('keydown', onMainPinClick);
     }
+  };
+
+  var onMainPinClick = function (evt) {
+    makeActivePage(evt);
   };
 
   // Запись изначальных координат в поле адреса
   inputAddress.value = window.mainPin.getMainMapPinCoords();
 
   // Обработчики клика и ENTER'a для перевода страници в активное состояние
-  mainMapPin.addEventListener('mousedown', makeActivePage);
-  mainMapPin.addEventListener('keydown', makeActivePage);
+  mainMapPin.addEventListener('mousedown', onMainPinClick);
+  mainMapPin.addEventListener('keydown', onMainPinClick);
 
   window.active = {
     makeActivePage: makeActivePage,
+    onMainPinClick: onMainPinClick,
   };
 })();

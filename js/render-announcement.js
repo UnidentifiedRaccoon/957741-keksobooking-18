@@ -30,14 +30,14 @@
 
   // Функция скрывающая карточку
   var closeCard = function () {
-    for (var j = 0; j < pinsArr.length; j++) {
+    pinsArr.forEach(function (item, index) {
       // Закрываем все карточки
-      pinsArr[j].classList.remove('map__pin--active');
-      cardsArr[j].classList.add('hidden');
+      item.classList.remove('map__pin--active');
+      cardsArr[index].classList.add('hidden');
       // Удаляем обработчик у всех кнопок закрытия карточек
-      var closeX = cardsArr[j].querySelector('.popup__close');
+      var closeX = cardsArr[index].querySelector('.popup__close');
       closeX.removeEventListener('click', onCloseXClick);
-    }
+    });
   };
 
   // Функция получениия кнопки(пина) из данных обработчика;
@@ -84,10 +84,10 @@
   window.renderAnnouncement = function (announcements, pinHidden) {
 
     var announcementQuantity = announcements.length > MAX_ANNOUNCMENT_QUANTITY ? MAX_ANNOUNCMENT_QUANTITY : announcements.length;
-    for (var j = 0; j < pinsArr.length; j++) {
-      mapPinsListElement.removeChild(pinsArr[j]);
-      window.util.map.removeChild(cardsArr[j]);
-    }
+    pinsArr.forEach(function (item, index) {
+      mapPinsListElement.removeChild(item);
+      window.util.map.removeChild(cardsArr[index]);
+    });
     pinsArr = [];
     cardsArr = [];
     for (var i = 0; i < announcementQuantity; i++) {

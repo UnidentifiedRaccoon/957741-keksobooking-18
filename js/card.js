@@ -48,12 +48,12 @@
     // Один из классов элемента должен иметь любую из приставок перечисленных в массиве cardInfo.offer.features
     for (var i = 0; i < cardFeaturesChildren.length; i++) {
       var featureChild = cardFeaturesChildren[i];
-      for (var j = 0; j < cardInfo.offer.features.length; j++) {
-        if (featureChild.classList.contains('popup__feature--' + cardInfo.offer.features[j])) {
+      cardInfo.offer.features.forEach(function (item) {
+        if (featureChild.classList.contains('popup__feature--' + item)) {
           // Вставка нужного содержимого
           cardFeatures.appendChild(featureChild);
         }
-      }
+      });
     }
 
     var cardDescription = card.querySelector('.popup__description');
@@ -64,12 +64,13 @@
     // Очистка содержимого
     cardPhotos.textContent = '';
     // Клонирование шаблона img, его размножение и вставка в fragment
-    for (var z = 0; z < cardInfo.offer.photos.length; z++) {
+    cardInfo.offer.photos.forEach(function (item) {
       var imgChild = cardPhotosChild.cloneNode(true);
-      imgChild.src = cardInfo.offer.photos[z];
+      imgChild.src = item;
       // Вставка нужного содержимого
       cardPhotos.appendChild(imgChild);
-    }
+    });
+
 
     var cardAvatar = card.querySelector('.popup__avatar');
     cardAvatar.src = cardInfo.author.avatar;

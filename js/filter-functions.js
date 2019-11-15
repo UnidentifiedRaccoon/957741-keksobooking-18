@@ -13,17 +13,8 @@
   var selectedFeatures = [];
   // Функция фильтрации объявлении по типу
   var filterType = function (item) {
-    // Стало (нужны ли скобки '()' у return)
     return (window.filterFunctions.selectedType === 'any' ||
      window.filterFunctions.selectedType === item.offer.type);
-     // Было
-    // if (window.filterFunctions.selectedType === 'any') {
-    //   return true;
-    // } else if (window.filterFunctions.selectedType === item.offer.type) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
   };
 
   // Функция фильтрации объявлении по цене
@@ -34,24 +25,12 @@
     // Низкая цена
     } else if (window.filterFunctions.selectedPrice === 'low') {
       return (item.offer.price <= 10000);
-      // if (item.offer.price <= 10000) {
-      //   return true;
-      // }
-      // return false;
     // Средняя цена
     } else if (window.filterFunctions.selectedPrice === 'middle') {
       return (item.offer.price > 10000 && item.offer.price < 50000);
-      // if (item.offer.price > 10000 && item.offer.price < 50000) {
-      //   return true;
-      // }
-      // return false;
     // Высокая цена
     } else if (window.filterFunctions.selectedPrice === 'high') {
       return (item.offer.price >= 50000);
-      // if (item.offer.price >= 50000) {
-      //   return true;
-      // }
-      // return false;
     }
     return false;
   };
@@ -67,29 +46,13 @@
     return ((window.filterFunctions.selectedGuests === 'any' ||
       parseInt(window.filterFunctions.selectedGuests, 10) === item.offer.guests) &&
       parseInt(window.filterFunctions.selectedGuests, 10) !== 0);
-    // if (window.filterFunctions.selectedGuests === 'any') {
-    //   return true;
-    // } else if (parseInt(window.filterFunctions.selectedGuests, 10) === 0) {
-    //   return false;
-    // } else if (parseInt(window.filterFunctions.selectedGuests, 10) === item.offer.guests) {
-    //   return true;
-    // }
-    // return false;
   };
 
   // Функция фильтрации объявлении по доп. услугам
   var filterFeatures = function (item) {
-
-    if (selectedFeatures.length === 0) {
-      return true;
-    }
-    var features = item.offer.features.join(', ');
-    for (var i = 0; i < window.filterFunctions.selectedFeatures.length; i++) {
-      if (features.indexOf(window.filterFunctions.selectedFeatures[i]) === -1) {
-        return false;
-      }
-    }
-    return true;
+    return window.filterFunctions.selectedFeatures.every(function (it) {
+      return item.offer.features && item.offer.features.indexOf(it) !== -1;
+    });
   };
 
   window.filterFunctions = {

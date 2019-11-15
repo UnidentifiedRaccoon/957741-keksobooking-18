@@ -57,8 +57,8 @@
     window.filterFunctions.selectedGuests = guestsSelect.value;
     window.filterFunctions.selectedFeatures = [];
     // Добавление обработчиков активирующих страницу
-    mainMapPin.addEventListener('mousedown', window.active.makeActivePage);
-    mainMapPin.addEventListener('keydown', window.active.makeActivePage);
+    mainMapPin.addEventListener('mousedown', window.active.onMainPinClick);
+    mainMapPin.addEventListener('keydown', window.active.onMainPinClick);
 
   };
 

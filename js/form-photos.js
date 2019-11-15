@@ -8,8 +8,9 @@
   var avatarBox = document.querySelector('.ad-form-header__preview');
   var avatarImg = avatarBox.querySelector('img');
   var avatarImgSrc = avatarImg.src;
-  var photoFileChooser = document.querySelector('#images');
-  var photoBox = document.querySelector('.ad-form__photo');
+  var photoContainer = document.querySelector('.ad-form__photo-container');
+  var photoFileChooser = photoContainer.querySelector('#images');
+  var photoBox = photoContainer.querySelector('.ad-form__photo');
   var photoBoxColor = photoBox.style.backgroundColor;
   var photoBoxPosition = ' 0 0';
   var photoBoxSize = photoBox.offsetWidth + 'px, ' + photoBox.offsetHeight + 'px';
@@ -51,8 +52,12 @@
       if (matches) {
         var reader = new FileReader();
         reader.addEventListener('load', function () {
-          photoBox.style.background = photoBoxColor + 'url(\'' + reader.result + '\')' + photoBoxRepeat + photoBoxPosition;
-          photoBox.style.backgroundSize = photoBoxSize;
+          var box = photoBox.cloneNode(true);
+          box.classList.remove('hidden');
+          photoBox.classList.add('hidden');
+          box.style.background = photoBoxColor + 'url(\'' + reader.result + '\')' + photoBoxRepeat + photoBoxPosition;
+          box.style.backgroundSize = photoBoxSize;
+          photoContainer.appendChild(box);
         });
         reader.readAsDataURL(file);
       }

@@ -12,7 +12,6 @@
 
   // Функция для проверкии соответствия значений комнат и гостей
   var validationOfRoomsAndGuests = function () {
-    console.log('Гости и комнаты валидируется');
     var roomNumbers = selectRoomNumbers;
     var capacity = selectCapacity;
     var roomVal = parseInt(roomNumbers.value, 10);
@@ -46,7 +45,6 @@
 
   // Функция для проверкии соответствия значений цены и типа
   var validationOfPriceAndType = function () {
-    console.log('Цена и тип валидируется');
     var type = selectType;
     var price = inputPrice;
     switch (type.value) {
@@ -86,7 +84,6 @@
   // Функция для проверкии соответствия значений select'а времени заезда и выезда
   // Из-за особенности проверки пришлось разбить на две функции (можно сделать одной но )
   var validationOfTimeinAndTimeout = function (changed, unchanged) {
-    console.log('Время валидируется');
     switch (changed.value) {
       case '12:00':
         unchanged.value = '12:00';
@@ -105,7 +102,6 @@
   // Функция проверки корректности данных введенных в поле Заголовка
   var validationOfTitle = function () {
     var title = inputTitle;
-    console.log('Заголовок валидируется');
     if (title.validity.tooLong) {
       title.setCustomValidity('Заголовок слишком длинный');
       title.classList.add('invalid');
@@ -118,13 +114,37 @@
     }
   };
 
+  var onRoomsOrGuestsChange = function () {
+    validationOfRoomsAndGuests();
+  };
+
+  var onTypeChange = function () {
+    validationOfPriceAndType();
+  };
+
+  var onPriceInput = function () {
+    validationOfPriceAndType();
+  };
+
+  var onTimeinChange = function () {
+    validationOfTimeinAndTimeout(selectTimein, selectTimeout);
+  };
+
+  var onTimoutChange = function () {
+    validationOfTimeinAndTimeout(selectTimeout, selectTimein);
+  };
+
+  var onTitleInput = function () {
+    validationOfTitle();
+  };
+
   // Функция для вызова для валидации значений select'а комнат и гостей
   var callRoomsAndGuestsValidation = function () {
     // Валидация начальных значений
     validationOfRoomsAndGuests();
     // Обработчики изменения значениий
-    selectRoomNumbers.addEventListener('change', validationOfRoomsAndGuests);
-    selectCapacity.addEventListener('change', validationOfRoomsAndGuests);
+    selectRoomNumbers.addEventListener('change', onRoomsOrGuestsChange);
+    selectCapacity.addEventListener('change', onRoomsOrGuestsChange);
   };
 
   // Функция для вызова валидации значений цены и типа
@@ -132,8 +152,8 @@
     // Валидация начальных значений
     validationOfPriceAndType();
     // Обработчик изменения значений цены и типа
-    selectType.addEventListener('change', validationOfPriceAndType);
-    inputPrice.addEventListener('input', validationOfPriceAndType);
+    selectType.addEventListener('change', onTypeChange);
+    inputPrice.addEventListener('input', onPriceInput);
   };
 
   // Функция для вызова валидации select'а времени заезда и выезда
@@ -141,15 +161,15 @@
     // Валидация начальных значений
     validationOfTimeinAndTimeout(selectTimein, selectTimeout);
     // Обработчики изменения значений
-    selectTimein.addEventListener('change', validationOfTimeinAndTimeout.bind(null, selectTimein, selectTimeout));
-    selectTimeout.addEventListener('change', validationOfTimeinAndTimeout.bind(null, selectTimeout, selectTimein));
+    selectTimein.addEventListener('change', onTimeinChange);
+    selectTimeout.addEventListener('change', onTimoutChange);
   };
 
   var callTitleValidation = function () {
     // Валидация начальных значений
     validationOfTitle();
     // Обработчики изменения значений
-    inputTitle.addEventListener('input', validationOfTitle);
+    inputTitle.addEventListener('input', onTitleInput);
   };
 
   // Функция для общего вызова валидации
